@@ -18,4 +18,6 @@ class DeviceAdmin(admin.ModelAdmin):
     qr_preview.short_description = "QR Code"
 
 @admin.register(Home)
+class HomeAdmin(admin.ModelAdmin):
+    list_display = ('id', 'name')
 
