@@ -3,7 +3,6 @@ from .models import Device, Home
 from django.utils.safestring import mark_safe
 
 @admin.register(Device)
-@admin.register(Home)
 class DeviceAdmin(admin.ModelAdmin):
     list_display = ('device_id', 'model', 'firmware', 'status', 'owner')
     search_fields = ('device_id',)
@@ -17,4 +16,6 @@ class DeviceAdmin(admin.ModelAdmin):
 
     qr_preview.allow_tags = True
     qr_preview.short_description = "QR Code"
+
+@admin.register(Home)
 
