@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import verify_device, claim_device
+from .views import verify_device, claim_device, create_home, list_home, assign_device_home
 
 urlpatterns = [
     path('verify', verify_device),

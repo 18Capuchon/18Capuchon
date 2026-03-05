@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Device
+from .models import Device, Home
 
 
 class DeviceVerifySerializer(serializers.ModelSerializer):
