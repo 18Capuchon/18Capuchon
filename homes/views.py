@@ -1,13 +1,12 @@
 from django.contrib.auth.models import User
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
 from .models import Home
 from .serializers import HomeSerializer
 
 @api_view(['POST'])
+@permission_classes([AllowAny])
 def create_home(request):
-
-    user = User.objects.first()
 
     name = request.data.get("name")
 
@@ -19,7 +18,7 @@ def create_home(request):
 
     home = Home.objects.create(
         name=name,
-        owner=request.user
+        owner=None
     )
 
     serializer = HomeSerializer(home)
@@ -27,11 +26,10 @@ def create_home(request):
     return Response(serializer.data)
 
 @api_view(['GET'])
+@permission_classes([AllowAny])
 def list_home(request):
 
-    user = User.objects.first()
-
-    homes = Home.objects.filter(owner=request.user)
+    homes = Home.objects.filter()
 
     serializer = HomeSerializer(homes, many=True)
 
