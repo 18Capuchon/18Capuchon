@@ -1,3 +1,4 @@
+from django.contrib.auth.models import User
 from rest_framework.decorators import api_view, permission_classes, authentication_classes
 from rest_framework.permissions import AllowAny
 from rest_framework.authentication import SessionAuthentication
@@ -43,7 +44,7 @@ def verify_device(request):
 @api_view(['POST'])
 def claim_device(request):
     device_id = request.data.get('device_id')
-    user = request.user
+    user = User.objects.first()
 
     if not device_id:
         return Response(
@@ -86,11 +87,10 @@ def assign_device_home(request):
         device = Device.objects.get(device_id=device_id)
         home = Home.objects.get(id=home_id)
 
-    except:
-        return Response(
-            {"error": "Not found"},
-            status=status.HTTP_404_NOT_FOUND
-        )
+    except Device.DoesNotExist:
+        return Response({"error": "Device not found"}, status=404)
+    except Home.DoesNotExist:
+        return Response({"error": "Home not found"}, status=404)
 
     device.home = home
     device.save()

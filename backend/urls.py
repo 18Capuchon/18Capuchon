@@ -26,11 +26,11 @@ from django.conf.urls.static import static
 urlpatterns = [
     path('admin/', admin.site.urls),
 
-    path('api/token/', TokenObtainPairView.as_view()),
-    path('api/token/refresh/', TokenRefreshView.as_view()),
+    path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refres'),
 
     path('api/devices/', include('devices.urls')),
-    path('api/', include('homes.urls')),
+    path('api/homes/', include('homes.urls')),
 ]
 
 if settings.DEBUG:
