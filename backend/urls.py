@@ -30,6 +30,7 @@ urlpatterns = [
     path('api/token/refresh/', TokenRefreshView.as_view()),
 
     path('api/devices/', include('devices.urls')),
+    path('api/', include('homes.urls')),
 ]
 
 if settings.DEBUG:

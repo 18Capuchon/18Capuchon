@@ -4,6 +4,7 @@ from io import BytesIO
 from django.core.files import File
 from django.db import models
 from django.contrib.auth.models import User
+from homes.models import Home
 
 
 class Device(models.Model):
@@ -34,7 +35,7 @@ class Device(models.Model):
     )
 
     home = models.ForeignKey(
-        'Home',
+        'homes.Home',
         on_delete=models.SET_NULL,
         null=True,
         blank=True,
@@ -95,25 +96,3 @@ class Device(models.Model):
 
     def __str__(self):
         return self.device_id
-
-class Home(models.Model):
-    id = models.UUIDField(
-        primary_key=True,
-        default=uuid.uuid4,
-        editable=False
-    )
-
-    name = models.CharField(
-        max_length=100
-    )
-
-    owner = models.ForeignKey(
-        User,
-        on_delete=models.CASCADE,
-        related_name="home"
-    )
-
-    created_at = models.DateTimeField(auto_now_add=True)
-
-    def __str__(self):
-        return self.name

@@ -4,9 +4,5 @@ from .views import verify_device, claim_device, create_home, list_home, assign_d
 urlpatterns = [
     path('verify', verify_device),
     path('claim', claim_device),
-
-    path('home/create', create_home),
-    path('home/list', list_home),
-
-    path('device/assign-home', assign_device_home),
+    path('assign-home', assign_device_home),
 ]
