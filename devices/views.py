@@ -4,7 +4,6 @@ from rest_framework.authentication import SessionAuthentication
 from rest_framework.response import Response
 from rest_framework import status
 from .models import Device
-from .serializers import HomeSerializer
 from homes.models import Home
 
 
