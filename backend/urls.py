@@ -31,6 +31,7 @@ urlpatterns = [
 
     path('api/devices/', include('devices.urls')),
     path('api/homes/', include('homes.urls')),
+    path('api/users/', include('users.urls')),
 ]
 
 if settings.DEBUG:

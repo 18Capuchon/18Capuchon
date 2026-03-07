@@ -7,7 +7,6 @@ from rest_framework import status
 from .models import Device
 from homes.models import Home
 
-
 @api_view(['POST'])
 @permission_classes([AllowAny])
 def verify_device(request):
