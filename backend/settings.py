@@ -59,7 +59,7 @@ INSTALLED_APPS = [
     'devices.apps.DevicesConfig',
     'cloudinary',
     'cloudinary_storage',
-    'homes'
+    'homes',
     'users'
 ]
 
