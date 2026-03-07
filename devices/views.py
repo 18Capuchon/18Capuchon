@@ -1,6 +1,6 @@
 from django.contrib.auth.models import User
 from rest_framework.decorators import api_view, permission_classes, authentication_classes
-from rest_framework.permissions import AllowAny
+from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.authentication import SessionAuthentication
 from rest_framework.response import Response
 from rest_framework import status
@@ -42,9 +42,10 @@ def verify_device(request):
     })
 
 @api_view(['POST'])
+@permission_classes([IsAuthenticated])
 def claim_device(request):
     device_id = request.data.get('device_id')
-    user = User.objects.first()
+    user = request.user
 
     if not device_id:
         return Response(
@@ -78,6 +79,7 @@ def claim_device(request):
     })
 
 @api_view(['POST'])
+@permission_classes([IsAuthenticated])
 def assign_device_home(request):
 
     device_id = request.data.get("device_id")
@@ -91,6 +93,9 @@ def assign_device_home(request):
         return Response({"error": "Device not found"}, status=404)
     except Home.DoesNotExist:
         return Response({"error": "Home not found"}, status=404)
+
+    if device.owner != request.user:
+        return Response({"error": "You do not own this device"}, status=403)
 
     device.home = home
     device.save()
