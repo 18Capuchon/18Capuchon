@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Device, Home
+from .models import Device, Home, Profile
 from django.utils.safestring import mark_safe
 
 @admin.register(Device)
@@ -20,4 +20,9 @@ class DeviceAdmin(admin.ModelAdmin):
 @admin.register(Home)
 class HomeAdmin(admin.ModelAdmin):
     list_display = ('id', 'name')
+
+@admin.register(Profile)
+class ProfileAdmin(admin.ModelAdmin):
+    list_display = ('user', 'phone', 'avatar')
+
 
