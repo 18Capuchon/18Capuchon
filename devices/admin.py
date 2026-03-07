@@ -1,5 +1,6 @@
 from django.contrib import admin
-from .models import Device, Home, Profile
+from .models import Device, Home
+from users.models import Profile
 from django.utils.safestring import mark_safe
 
 @admin.register(Device)
