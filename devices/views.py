@@ -6,6 +6,8 @@ from rest_framework.response import Response
 from rest_framework import status
 from .models import Device
 from homes.models import Home
+from django.views.decorators.csrf import csrf_exempt
+import json
 
 @api_view(['POST'])
 @permission_classes([AllowAny])
@@ -100,3 +102,29 @@ def assign_device_home(request):
     device.save()
 
     return Response({"success": True})
+
+@csrf_exempt
+@api_view(['POST'])
+@permission_classes([AllowAny])
+def device_online(request):
+
+    data = request.data
+    device_id = data.get("device_id")
+
+    if not device_id:
+        return Response({"error": "device_id required"}, status=400)
+
+    try:
+        device = Device.objects.get(device_id=device_id)
+    except Device.DoesNotExist:
+        return Response({"error": "Device not found"}, status=404)
+
+    device.status = "online"
+    device.save()
+
+    return Response({
+        "success": True,
+        "device_id": device.device_id,
+        "status": device.status
+    })
+    
