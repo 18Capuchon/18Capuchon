@@ -104,6 +104,7 @@ def assign_device_home(request):
     return Response({"success": True})
 
 @api_view(['POST'])
+@authentication_classes([])
 @permission_classes([AllowAny])
 @csrf_exempt
 def device_online(request):
